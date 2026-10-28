@@ -66,7 +66,13 @@ using namespace std;
 //     Node satu{42, NULL, NULL};
 //     preorder(&satu);      // mencetak:  42
 // =============================================================================
-void preorder(const Node* root) {
+void preorder(const Node *root) {
+    if (root != nullptr)                           
+    {
+        cout << root -> data << " ";             
+        preorder(root -> left);                    
+        preorder(root -> right);                   
+    }
 }
 
 // =============================================================================
@@ -89,7 +95,12 @@ void preorder(const Node* root) {
 //
 //     inorder(NULL);     // tidak mencetak apa pun
 // =============================================================================
-void inorder(const Node* root) {
+void inorder(const Node *root) {
+    if (root != nullptr) {                         
+        inorder(root -> left);                    
+        cout << root -> data << " ";               
+        inorder(root -> right);                   
+    }
 }
 
 // =============================================================================
@@ -113,7 +124,13 @@ void inorder(const Node* root) {
 //
 //     postorder(NULL);   // tidak mencetak apa pun
 // =============================================================================
-void postorder(const Node* root) {
+void postorder(const Node *root) {
+    if (root != nullptr)                       
+    {
+        postorder(root -> left);               
+        postorder(root -> right);                  
+        cout << root -> data << " ";               
+    }
 }
 
 // =============================================================================
@@ -140,6 +157,14 @@ void postorder(const Node* root) {
 //     clear(root);              // aman, tidak terjadi apa-apa
 // =============================================================================
 void clear(Node*& root) {
+    if (root == nullptr) return;
+    
+    clear(root->left);
+    clear(root->right);
+    
+    delete root;
+    
+    root = nullptr;
 }
 
 // =============================================================================
@@ -177,7 +202,13 @@ void clear(Node*& root) {
 //     3                           masih punya satu cabang)
 // =============================================================================
 int jumlahDaun(const Node* root) {
-    return 0;
+    if (root == nullptr) {
+        return 0;
+    }
+    if (root->left == nullptr && root->right == nullptr) {
+        return 1;
+    }
+    return jumlahDaun(root->left) + jumlahDaun(root->right);
 }
 
 // =============================================================================
@@ -219,7 +250,7 @@ int jumlahDaun(const Node* root) {
 // Boleh Anda ubah atau hapus.
 // -----------------------------------------------------------------------------
 
-// Membangun tree contoh yang dipakai di seluruh soal:
+// Membangun tree contoh yang dipakai di seluruh soal::
 //
 //               50
 //              ╱  ╲
@@ -356,7 +387,7 @@ int main() {
     // cout << "\njumlahDaun = " << jumlahDaun(punyaAnda) << endl;
     // clear(punyaAnda);
 
-    cout << "\n==========================================\n";
+    cout << "\n===========================================\n";
     cout << " Selesai. Silakan ubah bagian ini untuk\n";
     cout << " mencoba percobaan Anda sendiri.\n";
     cout << "==========================================\n";
